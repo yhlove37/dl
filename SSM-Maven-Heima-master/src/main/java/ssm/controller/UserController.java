@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ssm.entity.User;
 import ssm.service.ProductService;
@@ -15,6 +17,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @RequestMapping("/user")
@@ -40,20 +44,46 @@ public class UserController {
 
             return "redirect:/userupdate.jsp";
 
-
     }
 
     @RequestMapping(value = "/updateaction")
-    public String updateaction(@ModelAttribute User user,RedirectAttributes redirectAttributes, HttpSession session,Model model) {
+    public String updateaction(@ModelAttribute User user, RedirectAttributes redirectAttributes, HttpSession session, @RequestParam(value = "headfile",required = false) CommonsMultipartFile headfile,HttpServletRequest request) throws IOException {
+        System.out.println(headfile.isEmpty());
+               // 正是项目RealPath部署后在服务器上的路径
+        if (!headfile.isEmpty()){
+            String path = request.getServletContext().getRealPath("/upload/head");
+            System.out.println(path);
+            File realPath = new File(path);
+            if (!realPath.exists()){
+                realPath.mkdir();
+            }
+            //上传文件地址
+            System.out.println("上传文件保存地址："+realPath);
+            headfile.transferTo(new File(realPath +"/"+ headfile.getOriginalFilename()));
 
+//        //本地地址
+            String path2="C:\\Users\\yh139\\Desktop\\p3=\\SSM-Maven-Heima-master\\SSM-Maven-Heima-master\\src\\main\\webapp\\upload\\head";
+            File realPath2 = new File(path2);
+            if (!realPath2.exists()){
+                realPath2.mkdir();
+            }
+            System.out.println("上传文件保存地址："+realPath2);
+            headfile.transferTo(new File(realPath2 +"/"+ headfile.getOriginalFilename()));
+            String headfiles ="upload/head/"+headfile.getOriginalFilename();
+            user.setHeadimage(headfiles);
+        }else {
+            String headfiles =null;
+            //地址持久化
+            user.setHeadimage(headfiles);
+        }
         userService.updateaction(user);
         session.removeAttribute("user");
+        session.removeAttribute("loginError");
         //重定向也可以传参数吗？
         redirectAttributes.addFlashAttribute("cdinfo","修改成功，请重新登录");
-        //这还是在服务内，所以本质是转发
         return "redirect:/index";
-    }
 
+    }
 
 
 
@@ -89,7 +119,7 @@ public class UserController {
             session.setAttribute("user", user);
 
 //  return "redirect:"+ request.getContextPath() +"/index2.jsp";
-            return "redirect:/index.jsp";
+            return "redirect:/index";
         } else {
             redirectAttributes.addFlashAttribute("loginError","用户权限不够");
         session.setAttribute("loginError", "用户的权限不够");
@@ -121,7 +151,6 @@ public class UserController {
     }
 
 
-
     @RequestMapping(value = "/activebyuid")
     public String activebyuid(HttpServletRequest request, HttpSession session){
         String uid = request.getParameter("uid");
@@ -135,7 +164,6 @@ public class UserController {
             String activebyuid = userService.activebyuid(uid);
             request.setAttribute("mes",activebyuid);
         }
-
 
 
         return "forward:findAllusers";

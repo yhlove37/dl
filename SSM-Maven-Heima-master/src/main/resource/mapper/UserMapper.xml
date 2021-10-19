@@ -67,6 +67,7 @@
             email = #{email},
             password =#{password},
             telephone =#{telephone},
+            headimage=#{headimage},
             sex= #{sex}
             where uid = #{uid}
     </update>

@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class User implements Serializable {
-    
+
     private String uid;
     private String username;
     private String password;
@@ -16,6 +16,24 @@ public class User implements Serializable {
     private String sex;
     private int state;   //是否激活
     private String code; //激活码
+    private String headimage;
+
+    public User() {
+    }
+
+    public User(String uid, String username, String password, String name, String email, String telephone, Date birthday, String sex, int state, String code, String headimage) {
+        this.uid = uid;
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.email = email;
+        this.telephone = telephone;
+        this.birthday = birthday;
+        this.sex = sex;
+        this.state = state;
+        this.code = code;
+        this.headimage = headimage;
+    }
 
     public String getUid() {
         return uid;
@@ -97,6 +115,14 @@ public class User implements Serializable {
         this.code = code;
     }
 
+    public String getHeadimage() {
+        return headimage;
+    }
+
+    public void setHeadimage(String headimage) {
+        this.headimage = headimage;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -110,6 +136,7 @@ public class User implements Serializable {
                 ", sex='" + sex + '\'' +
                 ", state=" + state +
                 ", code='" + code + '\'' +
+                ", headimage='" + headimage + '\'' +
                 '}';
     }
 }

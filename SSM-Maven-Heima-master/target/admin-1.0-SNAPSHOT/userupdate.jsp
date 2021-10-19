@@ -75,9 +75,9 @@
 <div  style="position: absolute;margin-top: 10%;left: 10%">
 <div class="container"  >
     <div class="form row">
-        <form action="${pageContext.request.contextPath}/user/updateaction" method="post">
+        <form action="${pageContext.request.contextPath}/user/updateaction" method="post" enctype="multipart/form-data">
 
-            <h3 class="form-title">用户信息</h3>
+            <h3 class="form-title">修改用户信息</h3>
             <!--                设置隐藏域传递id-->
             <input hidden name="uid" value="${user.uid}">
             <div class="form-group">
@@ -116,6 +116,11 @@
                 <%--                <label>Birth</label>--%>
                 <%--                <input value="${user.birthday}" type="date" class="form-control" name="birthday" placeholder=“birthday”>--%>
                 <%--            </div>--%>
+                <div class="form-group">
+                    <label>上传头像</label>
+                    <input id="headfile"  type="file" class="form-control" name="headfile"
+                    >
+                </div>
 
                 <div class="form-group">
                     <label>Gender</label>
@@ -128,6 +133,7 @@
                         <label class="form-check-label">女</label>
                     </div>
                 </div>
+
 
                 <button id="sub_btn" type="submit" class="btn btn-primary">修改</button>
         </form>

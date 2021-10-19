@@ -3,6 +3,20 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 
+<style type="text/css" media="screen">
+	#d1{
+		width: 60px;
+		height: 60px;
+		border: 1px solid blue;
+		border-radius: 100%;
+		overflow: hidden;
+	}
+	img {
+		max-height: 100%;
+	}
+</style>
+
+
 <!-- 登录 注册 购物车... -->
 <div class="container-fluid ">
 	<div class="row">
@@ -19,7 +33,18 @@
 				<li><a style="font-size: 1.2vw" href="${pageContext.request.contextPath}/register.jsp">注册</a></li>
 			</c:if>
 			<c:if test="${!empty user}">
+				<c:if test="${empty user.headimage}">
+				<div id="d1">
+					<a href="${pageContext.request.contextPath}/user/touserupdate"><img src="http://gss0.baidu.com/7Po3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/48540923dd54564e2d86086eb8de9c82d0584f82.jpg" alt=""></a>
+				</div>
+				</c:if>
+				<c:if test="${!empty user.headimage}">
+				<div id="d1">
+					<a href="${pageContext.request.contextPath}/user/touserupdate"><img src="${user.headimage}" alt=""></a>
+				</div>
+				</c:if>
 				<li style="font-size: 1.2vw"  style="color:red">欢迎您，<a href="${pageContext.request.contextPath}/user/touserupdate">${user.username}</a></li>
+
 				<li><a style="font-size: 1.2vw" href="${pageContext.request.contextPath}/user/logout">退出</a> </li>
 				<c:if test="${user.state==3}">
 				<li><a  style="font-size: 1.2vw" href="admin2/index.jsp">管理页面</a></li>

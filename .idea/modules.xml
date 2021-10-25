@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/SSM-Maven-Heima-master.iml" filepath="$PROJECT_DIR$/.idea/SSM-Maven-Heima-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/SSM-Maven.iml" filepath="$PROJECT_DIR$/.idea/SSM-Maven.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SSM-Maven/admin.iml" filepath="$PROJECT_DIR$/SSM-Maven/admin.iml" />
     </modules>
   </component>
 </project>

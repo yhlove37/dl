@@ -2,16 +2,20 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head></head>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+</head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>会员注册</title>
 <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
 <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
-<!-- 引入表单校验jquery插件 -->
-<script src="js/jquery.validate.min.js" type="text/javascript"></script>
+
 <script src="js/bootstrap.min.js" type="text/javascript"></script>
 <!-- 引入自定义css文件 style.css -->
 <link rel="stylesheet" href="css/style.css" type="text/css" />
+
+
 
 <style>
 body {
@@ -38,92 +42,7 @@ font {
 
 
 
-<script type="text/javascript">
-	
-	//自定义校验规则
-	$.validator.addMethod(
-		//规则的名称
-		"checkUsername",
-		//校验的函数
-		function(value,element,params){
-			//定义一个标志
-			var flag = false;
-			$.ajax({
-				"async":false,
-				"url":"${pageContext.request.contextPath}/register/checkUsername",
-				"data":{"username":value},
-				"type":"POST",
-				"dataType":"json",
-				"success":function(data){
-				//查询到数据则为真
-				flag = data.isExist;
-				}
-			});
-			//如果查询到用户名返回false代表该校验器不通过
-			return !flag;
-		}
-	);
 
-
-
-
-	$(function(){
-		$("#myform").validate({
-			rules:{
-				"username":{
-					"required":true,   //期待是true，错误则返回错误信息
-					"checkUsername":true
-				},
-				"password":{
-					"required":true,
-					"rangelength":[6,12]
-				},
-				"repassword":{
-					"required":true,
-					"rangelength":[6,12],
-					"equalTo":"#password"
-				},
-				"email":{
-					"required":true,
-					"email":true
-				},
-				"sex":{
-					"required":true
-				},
-				"birthday":{
-					"required":true
-				}
-
-			},
-			messages:{
-				"username":{
-					"required":"用户名不能为空",
-					"checkUsername":"用户名已存在"
-				},
-				"password":{
-					"required":"密码不能为空",
-					"rangelength":"密码长度6-12位"
-				},
-				"repassword":{
-					"required":"密码不能为空",
-					"rangelength":"密码长度6-12位",
-					"equalTo":"两次密码不一致"
-				},
-				"email":{
-					"required":"邮箱不能为空",
-					"email":"邮箱格式不正确"
-				},
-				"sex":{
-					"required":"性别不能为空"
-				},
-				"birthday":{
-					"required":"出生日期不能为空"
-				}
-			}
-		});
-	});
-
-</script>
 
 </head>
 <body>
@@ -131,14 +50,103 @@ font {
 	<!-- 引入header.jsp -->
 	<jsp:include page="header.jsp"></jsp:include>
 
+	<!-- 引入表单校验jquery插件 -->
+	<script src="js/jquery.validate.min.js" type="text/javascript"></script>
+	<script type="text/javascript">
+
+		//自定义校验规则
+		$.validator.addMethod(
+				//规则的名称
+				"checkUsername",
+				//校验的函数
+				function(value,element,params){
+					//定义一个标志
+					var flag = false;
+					$.ajax({
+						"async":false,
+						"url":"${pageContext.request.contextPath}/register/checkUsername",
+						"data":{"username":value},
+						"type":"POST",
+						"dataType":"json",
+						"success":function(data){
+							//查询到数据则为真
+							flag = data.isExist;
+						}
+					});
+					//如果查询到用户名返回false代表该校验器不通过
+					return !flag;
+				}
+		);
+
+
+
+
+		$(function(){
+			$("#myform").validate({
+				rules:{
+					"username":{
+						"required":true,   //期待是true，错误则返回错误信息
+						"checkUsername":true
+					},
+					"password":{
+						"required":true,
+						"rangelength":[6,12]
+					},
+					"repassword":{
+						"required":true,
+						"rangelength":[6,12],
+						"equalTo":"#password"
+					},
+					"email":{
+						"required":true,
+						"email":true
+					},
+					"sex":{
+						"required":true
+					},
+					"birthday":{
+						"required":true
+					}
+
+				},
+				messages:{
+					"username":{
+						"required":"用户名不能为空",
+						"checkUsername":"用户名已存在"
+					},
+					"password":{
+						"required":"密码不能为空",
+						"rangelength":"密码长度6-12位"
+					},
+					"repassword":{
+						"required":"密码不能为空",
+						"rangelength":"密码长度6-12位",
+						"equalTo":"两次密码不一致"
+					},
+					"email":{
+						"required":"邮箱不能为空",
+						"email":"邮箱格式不正确"
+					},
+					"sex":{
+						"required":"性别不能为空"
+					},
+					"birthday":{
+						"required":"出生日期不能为空"
+					}
+				}
+			});
+		});
+
+	</script>
+
 	<div class="container"
-		style="width: 100%; background: url('image/regist_bg.jpg');">
+		style="width: 100%; background: url('img/bg1.png');">
 		<div class="row">
 			<div class="col-md-2"></div>
 			<div class="col-md-8"
 				style="background: #fff; padding: 40px 80px; margin: 30px; border: 7px solid #ccc;">
 				<font>会员注册</font>USER REGISTER
-				<form id="myform" class="form-horizontal" action="${pageContext.request.contextPath }/register/" method="post" style="margin-top: 5px;">
+				<form id="myform" class="form-horizontal" action="${pageContext.request.contextPath }/register/" method="post" accept-charset="UTF-8" style="margin-top: 5px;">
 					<div class="form-group">
 						<label for="username" class="col-sm-2 control-label">用户名</label>
 						<div class="col-sm-6">

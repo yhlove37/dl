@@ -19,14 +19,19 @@ public class AdminOrderController {
     AdminProductService service;
 
     /**
-     *获得所有订单
-     * @param request
-     * @return
-     */
-    @RequestMapping(value = "/findAllOrders")
+     * @Author YH
+     * @Description //查询全部订单，根据订单的uid 查询用户信息
+     * @Date 6:00 PM 10/25/2021
+     * @Param [request]
+     * @return java.lang.String
+     **/
+    @RequestMapping(value = "/findAllOrderss")
     public String findAllOrders(HttpServletRequest request){
         List<Order> orderList = service.findAllOrders();
+
+        System.out.println(orderList);
         request.setAttribute("orderList", orderList);
+        //可知uid对应用户
         return "admin/order/list";
 //       return  "admin2/page/page1";
     }

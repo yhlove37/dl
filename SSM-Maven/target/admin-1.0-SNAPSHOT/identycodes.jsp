@@ -69,7 +69,7 @@
 </script>
 
 <div class="container"
-     style="width: 100%; background: url('../image/regist_bg.jpg');">
+     style="width: 100%; background: url('${pageContext.request.contextPath}/img/bg1.png');">
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8"

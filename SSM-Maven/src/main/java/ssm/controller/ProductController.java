@@ -2,6 +2,7 @@ package ssm.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.net.UnknownHostException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -181,8 +183,14 @@ public class ProductController {
         return "/product_info";
 
     }
-    
-    //添加商品到购物车中
+
+    /**
+     * @Author YH
+     * @Description 添加商品到购物车中，购物车为商品的map集合
+     * @Date 3:25 PM 10/25/2021
+     * @Param [request, session]
+     * @return java.lang.String
+     **/
     @RequestMapping(value = "/addProductToCart")
     public String addProductToCart(HttpServletRequest request, HttpSession session){
         //获取商品的 pid 和 需要购买的数量
@@ -191,26 +199,30 @@ public class ProductController {
 
         // 封装CartItem
         //--根据pid查询商品
+        //ProductVo 表示有类别的商品
         ProductVo productVo = service.findProductVoByPid(pid);
         //--计算小计 subTotal
         double subTotal = productVo.getShop_price() * buyNum;
-        //--一件购物项目 包含商品的信息，数量，和总价格
+        //完整的一件商品的订单，包含数量，和总价格
         CartItem item = new CartItem();
         item.setProductVo(productVo);
         item.setBuyNum(buyNum);
         item.setSubTotal(subTotal);
         
         //获取购物车，首先判断session中有没有购物车
+        //购物车则是CartItem的集合 以及总价格
         Cart cart = (Cart) session.getAttribute("cart");
         if(cart==null){
             cart = new Cart();
         }
         //将购物项放到车中---key是pid
         //先判断购物车中是否已将包含此购物项了 ----- 判断key是否已经存在
+
         //如果购物车中已经存在该商品----将现在买的数量与原有的数量进行相加操作
+        //得到购物车中的商品项集合
         Map<String, CartItem> cartItems = cart.getCartItems();
-        
         double newSubtotal = 0.0;
+        //如果此时添加的商品项与在购物车的集合中商品项存在，更新该项的商品数据（购买数量，购买总价）
         if(cartItems.containsKey(pid)){
             //取出购买数量，再将新增的数量加到原来的购买数量中
             int oldBuyNum = cartItems.get(pid).getBuyNum();
@@ -221,14 +233,13 @@ public class ProductController {
             newSubtotal = buyNum * productVo.getShop_price();
             cartItems.get(pid).setSubTotal(oldSubtotal + newSubtotal);
         }else{
-            // cart中没有该商品 就好办了不是吗
+            // cart中没有该商品 就好办了不是吗，将新添加的商品放入map集合中
             cart.getCartItems().put(productVo.getPid(), item);
             newSubtotal = buyNum * productVo.getShop_price() + newSubtotal;
         }
         //计算购物车 之前的购物车呢 所以要相加 总计
         double total = cart.getTotal() + newSubtotal;
         cart.setTotal(total);
-        
         session.setAttribute("cart", cart);
         return "redirect:/cart.jsp";
     }
@@ -261,7 +272,13 @@ public class ProductController {
     }
     
     
-    //提交订单
+    /**
+     * @Author YH
+     * @Description //将购物车中的商品提交到订单中（此时商品为未付款的状态）
+     * @Date 3:28 PM 10/25/2021
+     * @Param [request, session]
+     * @return java.lang.String
+     **/
     @RequestMapping(value = "/submitOrder")
     public String submitOrder(HttpServletRequest request, HttpSession session){
         // 判断用户是否已经登录，没有登录，订单不能够提交
@@ -271,29 +288,31 @@ public class ProductController {
         }
         // 封装一个Order对象传给Service层
         Order order = new Order();
-        //1、private String oid;  //订单号
+        //随机的订单号
         order.setOid(CommonsUtils.getUUID());
-        //2、private Date orderTime;  // 下单时间
-        order.setOrderTime(new Date());
-        //3、private double total;  // 订单总金额
+        //下单的时间
+        order.setOrderTime(new SimpleDateFormat("yyyy/MM/dd HH:mm").format(new Date()));
+        //取出cart中的属性得到总价格
         Cart cart = (Cart) session.getAttribute("cart");
         order.setTotal(cart.getTotal());
-        //4、private int state;  //是否已付款，1:已付款  0：未付款
+        //设置订单的状态未0（表示未付款的状态）
         order.setState(0);
-        //5、private String address;  // 收货地址
+        //收货的地址为空
         order.setAddress(null);
-        //6、private String name;  // 收货人姓名
+        //收货人为空
         order.setName(null);
-        //7、private String telephone;  // 收货人联系电话
+        //收货人电话为空
         order.setTelephone(null);
-        //8、private User user; //订单属于哪个用户
+        //改订单绑定当前的用户
         order.setUser(user);
-        //9、 订单的订单项 List<OrderItem> orderItems = new ArrayList<>();
+
+        //这里得到购物车的全部商品项
         Map<String, CartItem> cartItems = cart.getCartItems();
+        //将订单中的商品放入order中的OrderItem集合
         for(Map.Entry<String, CartItem> entry : cartItems.entrySet()){
             //取出购物项
             CartItem cartItem = entry.getValue();
-            //创建订单项
+            //创建订单集合
             OrderItem orderItem = new OrderItem();
             //1)private String itemId;
             orderItem.setItemId(CommonsUtils.getUUID());
@@ -305,7 +324,6 @@ public class ProductController {
             orderItem.setProduct(cartItem.getProductVo());
             //5)private Order order;
             orderItem.setOrder(order);
-            
             //将订单项添加到订单的订单项集合中
             order.getOrderItems().add(orderItem);
         }
@@ -317,20 +335,7 @@ public class ProductController {
         return "redirect:/order_info.jsp";
     }
     
-    //暂时无法实现 2018.11.20
-//    //确认订单---更新收获人信息+在线支付
-//    public String confirmOrder(HttpServletRequest request, HttpServletResponse response){
-//        //1、更新收货人信息
-//        Map<String, String[]> properties = request.getParameterMap();
-//        Order order = new Order();
-//        try {
-//            BeanUtils.populate(order, properties);
-//        } catch (IllegalAccessException | InvocationTargetException e) {
-//            e.printStackTrace();
-//        }
-//
-//        service.updateOrderAddr(order);
-//    }
+
 
 
     @RequestMapping(value = "/myOrders")
@@ -390,13 +395,9 @@ public class ProductController {
     public String getvalue(HttpServletRequest request, HttpSession session, @RequestParam("name") String name,@RequestParam("address") String address,@RequestParam("telephone") String telephone){
        Order order=(Order) session.getAttribute("order");
         String oid = order.getOid();
-        System.out.println("1111111111111"+oid);
-        System.out.println(address);
-        System.out.println(name);
-        System.out.println(telephone);
         //根据订单号修改address 和name和telephone
         service.updateOrderAddr(address,name,telephone,oid);
-        request.setAttribute("msg","账单已经上传");
+        request.setAttribute("msg","商品购买成功");
         return "/order_info";
 
     }

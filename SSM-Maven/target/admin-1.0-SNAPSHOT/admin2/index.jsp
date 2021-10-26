@@ -55,7 +55,7 @@
                         <a data_herf="${pageContext.request.contextPath}/adminProductList" href="javascript:;">商品信息管理</a>
                     </li>
                     <li class="layui-nav-item">
-                        <a data_herf="${pageContext.request.contextPath}/findAllOrders" href="javascript:;">订单信息管理</a>
+                        <a data_herf="${pageContext.request.contextPath}/findAllOrderss" href="javascript:;">订单信息管理</a>
                     </li>
                     <li class="layui-nav-item">
                         <a data_herf="${pageContext.request.contextPath}/user/findAllusers" href="javascript:;">用户管理</a>

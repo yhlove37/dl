@@ -129,9 +129,12 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public void submitOrder(Order order) {
+        //添加一个订单（包含多种商品）到数据库
         mapper.addOrders(order);
+
         List<OrderItem> items = order.getOrderItems();
         for(OrderItem orderItem : items){
+            //订单中的单行单个商品
             mapper.addOrderItem(orderItem);
         }
     }

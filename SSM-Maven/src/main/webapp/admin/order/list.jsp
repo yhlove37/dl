@@ -100,17 +100,25 @@
 										订单编号
 									</td>
 									<td align="center" width="10%">
+										用户
+									</td>
+
+									<td align="center" width="10%">
 										订单金额
 									</td>
 									<td align="center" width="10%">
 										收货人
 									</td>
 									<td align="center" width="10%">
+										订单日期
+									</td>
+									<td align="center" width="10%">
 										订单状态
 									</td>
-									<td align="center" width="50%">
+									<td align="center" width="20%">
 										订单详情
 									</td>
+
 								</tr>
 								
 								<c:forEach items="${orderList }" var="order" varStatus="vs">
@@ -118,20 +126,28 @@
 									<tr onmouseover="this.style.backgroundColor = 'white'"
 										onmouseout="this.style.backgroundColor = '#F5FAFE';">
 										<td style="CURSOR: hand; HEIGHT: 22px" align="center"
-											width="18%">
+											width="10%">
 											${vs.count }
 										</td>
 										<td style="CURSOR: hand; HEIGHT: 22px" align="center"
-											width="17%">
+											width="10%">
 											${order.oid }
 										</td>
 										<td style="CURSOR: hand; HEIGHT: 22px" align="center"
-											width="17%">
+											width="10%">
+												${order.user.name }
+										</td>
+										<td style="CURSOR: hand; HEIGHT: 22px" align="center"
+											width="10%">
 											${order.total }
 										</td>
 										<td style="CURSOR: hand; HEIGHT: 22px" align="center"
-											width="17%">
+											width="10%">
 											${order.name }
+										</td>
+										<td  type="data"  style="CURSOR: hand; HEIGHT: 22px" align="center"
+											width="10%">
+												${order.orderTime}
 										</td>
 										<td style="CURSOR: hand; HEIGHT: 22px" align="center"
 											width="17%">
@@ -140,7 +156,7 @@
 										<td align="center" style="HEIGHT: 22px">
 											<input type="button" value="订单详情" class="clickedElement" onclick="findOrderInfoByOid('${order.oid }')"/>
 										</td>
-						
+
 									</tr>
 								
 								</c:forEach>

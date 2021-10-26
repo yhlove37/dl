@@ -17,9 +17,9 @@
         width: 100%;
     }
 </style>
-<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
-<script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
-<script src="js/bootstrap.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css" type="text/css" />
+<script src="${pageContext.request.contextPath}/js/jquery-1.11.3.min.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" ></script>
 
 
@@ -28,10 +28,10 @@
 <div class="container-fluid ">
     <div class="row">
         <div class="col-xs-4">
-            <img src="img/log2.png" style="width: 60%;height: 100%;position: relative;left: -20px"/>
+            <img src="" style="width: 60%;height: 100%;position: relative;left: -20px"/>
         </div>
         <div class="col-xs-5">
-            <img  src="img/header.png" style="height: 100%;width: 80%"/>
+            <img  src="${pageContext.request.contextPath}/img/header.png" style="height: 100%;width: 80%"/>
         </div>
         <div class="col-xs-3" style="padding-top:20px;">
 
@@ -88,16 +88,7 @@
 
 
 
-<%--                <li style="font-size: 1.2vw" style="color:red">欢迎您，<a--%>
-<%--                        href="${pageContext.request.contextPath}/user/touserupdate">${user.username}</a></li>--%>
 
-<%--                <li><a style="font-size: 1.2vw" href="${pageContext.request.contextPath}/user/logout">退出</a></li>--%>
-<%--                <c:if test="${user.state==3}">--%>
-<%--                    <li><a style="font-size: 1.2vw" href="admin2/index.jsp">管理页面</a></li>--%>
-<%--                </c:if>--%>
-<%--                </c:if>--%>
-<%--                <li><a style="font-size: 1.2vw" href="cart.jsp">购物车</a></li>--%>
-<%--                <li><a style="font-size: 1.2vw" href="${pageContext.request.contextPath}/myOrders">我的订单</a></li>--%>
             </ol>
         </div>
     </div>

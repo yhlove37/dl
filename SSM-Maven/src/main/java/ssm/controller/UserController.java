@@ -162,7 +162,6 @@ public class UserController {
             request.setAttribute("mes",canelbyuid);
 
         }else {
-            System.out.println("++++++++++++++++"+uid);
             String activebyuid = userService.activebyuid(uid);
             request.setAttribute("mes",activebyuid);
         }

@@ -119,6 +119,8 @@
         where i.pid = p.pid and i.oid = #{oid}
     </select>
 
+
+
 <!--    <delete id="deleteOrderByoid" parameterType="String >-->
 <!--        delete  from order-->
 <!--        where oid=#{oid}-->

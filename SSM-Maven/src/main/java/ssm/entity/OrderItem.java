@@ -3,11 +3,7 @@ package ssm.entity;
 import java.io.Serializable;
 
 public class OrderItem implements Serializable {
-    /*`itemid` varchar(32) NOT NULL,
-	  `count` int(11) DEFAULT NULL,
-	  `subtotal` double DEFAULT NULL,
-	  `pid` varchar(32) DEFAULT NULL,
-	  `oid` varchar(32) DEFAULT NULL*/
+
     
     private String itemId;  
     private int count;

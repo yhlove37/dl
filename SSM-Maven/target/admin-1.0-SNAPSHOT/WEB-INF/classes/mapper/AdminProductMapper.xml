@@ -57,9 +57,9 @@
             </if>
         </where>
     </select>
-    <select id="findAllOrders" resultType="Order">
-        select * from orders
-    </select>
+
+
+
 <!--    这里的map映射很重要-->
     <resultMap id="allOrderItemByOid" type="OrderItem">
         <result property="count" column="count"/>
@@ -77,5 +77,27 @@
         select p.shop_price, p.pname, p.pimage, i.count, i.subtotal
         from orderitem i, product p
         where i.pid = p.pid and oid = #{oid}
+    </select>
+
+
+
+<!--一对多查询-->
+    <resultMap id="orderUser" type="ssm.entity.Order">
+        <result property="oid" column="oid"></result>
+        <result property="orderTime" column="ordertime"></result>
+        <result property="total" column="total"></result>
+        <result property="state" column="state"></result>
+        <result property="address" column="address"></result>
+        <result property="name" column="name"></result>
+        <result property="telephone" column="telephone"></result>
+        <association property="user" column="uid" javaType="User" select="getUserByUid"></association>
+    </resultMap>
+    <!--查询全部订单信息-->
+    <select id="findAllOrders" resultMap="orderUser">
+        select * from orders
+    </select>
+
+    <select id="getUserByUid" resultType="ssm.entity.User">
+        select * from User  where uid=#{uid}
     </select>
 </mapper>

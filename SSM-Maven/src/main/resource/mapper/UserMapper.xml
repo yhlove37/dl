@@ -16,7 +16,8 @@
                 #{birthday},
                 #{sex},
                 #{state},
-                #{code}
+                #{code},
+                #{headimage}
         )
         
     </insert>

@@ -73,7 +73,8 @@
 								</td>
 								<td align="center" style="HEIGHT: 22px">
 <%--									<button class="but-primary" onclick="window.location.href='${pageContext.request.contextPath}/user/deletebyid?uid=${user1.uid}">删除当前用户</button>--%>
-									<a href="${pageContext.request.contextPath}/user/deletebyid?uid=${user1.uid}">删除用户</a>
+									<a href="${pageContext.request.contextPath}/user/deletebyid?uid=${user1.uid}"><img src="${pageContext.request.contextPath}/images/i_del.gif"
+																													   width="16" height="16" border="0" style="CURSOR: hand"></a>
 								</td>
 
 							</tr>

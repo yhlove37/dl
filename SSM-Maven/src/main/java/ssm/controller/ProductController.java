@@ -34,15 +34,15 @@ public class ProductController {
 
     @Autowired
     UserService userService;
-    
-    // 实现分页获取商品列表
+
+
+
     @RequestMapping(value = "/productList", method = RequestMethod.GET)
     public String getProductList(HttpServletRequest request){
 
         //获得当前页  从request域中取出的数据都是string
         String currentPageStr = request.getParameter("currentPage");
         String cid = request.getParameter("cid");
-
 
         // 如果为首次访问，则默认显示第一页
         if(currentPageStr==null) currentPageStr="1";
@@ -55,12 +55,16 @@ public class ProductController {
         return "/product_list";
     }
     
-    // 加载有热门商品和最新商品的页面
+    /**
+     * @Author YH
+     * @Description //加载热门商品以及最新商品
+     * @Date 11:01 AM 10/26/2021
+     * @Param [request]
+     * @return java.lang.String
+     **/
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String getIndex(HttpServletRequest request) throws UnknownHostException, UnsupportedEncodingException {
-        // 准备热门商品
         List<ProductVo> hotProductList = service.findHotProductList();
-        //准备最新商品
         List<ProductVo> newProductList = service.findNewProductList();
         request.setAttribute("hotProductList", hotProductList);
         request.setAttribute("newProductList", newProductList);
@@ -98,7 +102,6 @@ public class ProductController {
                 for(Cookie cookie : cookies){
                     if("pids".equals(cookie.getName())){
                         String pids = cookie.getValue(); //3-2-1
-                        System.out.println("cookie存数据的方式666666666"+pids);
                         String[] split = pids.split("-");
                         for(String pid : split){
                             Product product = service.findProductByPid(pid);
@@ -117,10 +120,12 @@ public class ProductController {
     }
 
     /**
-     * 根据 pid 查看商品的详细信息
-     * @param request
-     * @return
-     */
+     * @Author YH
+     * @Description //TODO
+     * @Date 11:33 AM 10/26/2021
+     * @Param [request, response]
+     * @return java.lang.String
+     **/
     @RequestMapping(value = "/productInfo")
     public String getProductInfo(HttpServletRequest request, HttpServletResponse response){
         //获得商品id
@@ -130,11 +135,8 @@ public class ProductController {
         String currentPage = request.getParameter("currentPage");
         String sy = request.getParameter("sy");
 
-
-
         //根据pid得到商品信息
         Product product = service.findProductByPid(pid);
-        
         request.setAttribute("product", product);
         request.setAttribute("currentPage", currentPage);
         request.setAttribute("cid", cid);
@@ -144,7 +146,6 @@ public class ProductController {
         //产生新的cookies,再发送到客户端。
         //1、pids为cookie
         String pids= pid;
-        System.out.println("**********"+pids);
         //2、从request域中获得Cookies.
         Cookie[] cookies = request.getCookies();
         if(cookies != null){
@@ -155,8 +156,6 @@ public class ProductController {
                     //1-3-2 本次访问商品pid是8----->8-1-3-2
                     //1-3-2 本次访问商品pid是3----->3-1-2
                     //1-3-2 本次访问商品pid是2----->2-1-3
-                    //将pids拆成一个数组
-                    System.out.println("================================"+pids);
                     String[] split = pids.split("-"); //{3,1,2}
                     List<String> asList = Arrays.asList(split);  //[3,1,2]
                     LinkedList<String> list = new LinkedList<String>(asList); //[3,1,2]
@@ -200,7 +199,7 @@ public class ProductController {
         // 封装CartItem
         //--根据pid查询商品
         //ProductVo 表示有类别的商品
-        ProductVo productVo = service.findProductVoByPid(pid);
+        ProductVo productVo = service.findProductVoByPid(Integer.parseInt(pid));
         //--计算小计 subTotal
         double subTotal = productVo.getShop_price() * buyNum;
         //完整的一件商品的订单，包含数量，和总价格
@@ -220,7 +219,7 @@ public class ProductController {
 
         //如果购物车中已经存在该商品----将现在买的数量与原有的数量进行相加操作
         //得到购物车中的商品项集合
-        Map<String, CartItem> cartItems = cart.getCartItems();
+        Map<Integer, CartItem> cartItems = cart.getCartItems();
         double newSubtotal = 0.0;
         //如果此时添加的商品项与在购物车的集合中商品项存在，更新该项的商品数据（购买数量，购买总价）
         if(cartItems.containsKey(pid)){
@@ -248,11 +247,15 @@ public class ProductController {
     @RequestMapping(value = "/delProductFromCart")
     public String delProductFromCart(HttpServletRequest request, HttpSession session){
         //获取要删除的商品的pid
-        String pid = request.getParameter("pid");
+
+        Integer pid = Integer.valueOf(request.getParameter("pid"));
         //获取session中的购物车
         Cart cart = (Cart) session.getAttribute("cart");
         if(cart!=null){
-            Map<String, CartItem> cartItems = cart.getCartItems();
+            Map<Integer, CartItem> cartItems = cart.getCartItems();
+            for (Integer key : cartItems.keySet()) {
+                System.out.println(key);
+            }
             //改变购物车总价
             double total = cart.getTotal() - cart.getCartItems().get(pid).getSubTotal();
             cart.setTotal(total);
@@ -305,16 +308,20 @@ public class ProductController {
         order.setTelephone(null);
         //改订单绑定当前的用户
         order.setUser(user);
+        //设置订单的逻辑存在
+        order.setOstate(1);
 
         //这里得到购物车的全部商品项
-        Map<String, CartItem> cartItems = cart.getCartItems();
+        Map<Integer, CartItem> cartItems = cart.getCartItems();
         //将订单中的商品放入order中的OrderItem集合
-        for(Map.Entry<String, CartItem> entry : cartItems.entrySet()){
+        for(Map.Entry<Integer, CartItem> entry : cartItems.entrySet()){
             //取出购物项
             CartItem cartItem = entry.getValue();
             //创建订单集合
             OrderItem orderItem = new OrderItem();
             //1)private String itemId;
+            //默认为空
+            //创建账单的编号
             orderItem.setItemId(CommonsUtils.getUUID());
             //2)private int count;
             orderItem.setCount(cartItem.getBuyNum());
@@ -369,7 +376,6 @@ public class ProductController {
         public String removeByoid (HttpServletRequest request, HttpSession session){
             String oid1 = request.getParameter("oid");
             service.deleteOrderByoid(oid1);
-
             User user = (User) session.getAttribute("user");
             List<Order> orderList = service.findAllOrders(user.getUid());
             //但是这样查询，Order对象中的数据是不完整的，缺少List<OrderItem> orderItems数据
@@ -385,7 +391,6 @@ public class ProductController {
                 }
             }
             request.setAttribute("orderList", orderList);
-
 
             return "/order_list";
         }

@@ -39,6 +39,7 @@ body {
 				<table class="table table-bordered">
 					<c:forEach items="${orderList}" var="order">
 						<tbody>
+						<c:if test="${order.ostate == 1}">
 						<tr class="success" style="width: 100%" >
 							<th  colspan="6">订单编号:${order.oid}&nbsp;&nbsp;${order.state==0?"未付款":"已付款"}</th>
 						</tr>
@@ -63,6 +64,7 @@ body {
 							</tr>
 						</c:forEach>
 						</tbody>
+						</c:if>
 					</c:forEach>
 				</table>
 			</div>

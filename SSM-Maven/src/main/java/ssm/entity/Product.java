@@ -4,18 +4,9 @@ import java.io.Serializable;
 
 public class Product implements Serializable {
 
-	/*`pid` varchar(32) NOT NULL,
-	  `pname` varchar(50) DEFAULT NULL,
-	  `market_price` double DEFAULT NULL,
-	  `shop_price` double DEFAULT NULL,
-	  `pimage` varchar(200) DEFAULT NULL,
-	  `pdate` date DEFAULT NULL,
-	  `is_hot` int(11) DEFAULT NULL,
-	  `pdesc` varchar(255) DEFAULT NULL,
-	  `pflag` int(11) DEFAULT NULL,
-	  `cid` varchar(32) DEFAULT NULL*/
+
 	
-	private String pid;
+	private int pid;
 	private String pname;
 	private double market_price;
 	private double shop_price;
@@ -26,10 +17,10 @@ public class Product implements Serializable {
 	private int pflag;
 	private String cid;
 	
-	public String getPid() {
+	public int getPid() {
 		return pid;
 	}
-	public void setPid(String pid) {
+	public void setPid(int pid) {
 		this.pid = pid;
 	}
 	public String getPname() {

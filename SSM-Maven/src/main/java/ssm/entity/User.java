@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class User implements Serializable {
 
-    private String uid;
+    private int uid;
     private String username;
     private String password;
     private String name;
@@ -24,8 +24,8 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(String uid, String username, String password, String name, String email, String telephone, Date birthday, String sex, int state, String code, String headimage) {
-        this.uid = uid;
+    public User(int uid, String username, String password, String name, String email, String telephone, Date birthday, String sex, int state, String code, String headimage) {
+        this.uid= uid;
         this.username = username;
         this.password = password;
         this.name = name;
@@ -38,11 +38,11 @@ public class User implements Serializable {
         this.headimage = headimage;
     }
 
-    public String getUid() {
+    public int getUid() {
         return uid;
     }
 
-    public void setUid(String uid) {
+    public void setUid( int uid) {
         this.uid = uid;
     }
 

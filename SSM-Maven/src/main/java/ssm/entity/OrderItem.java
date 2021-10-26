@@ -5,11 +5,22 @@ import java.io.Serializable;
 public class OrderItem implements Serializable {
 
     
-    private String itemId;  
+    private String itemId;
     private int count;
     private double subtotal;
     private Product product;
     private Order order;
+
+    public OrderItem() {
+    }
+
+    public OrderItem(String itemId, int count, double subtotal, Product product, Order order) {
+        this.itemId = itemId;
+        this.count = count;
+        this.subtotal = subtotal;
+        this.product = product;
+        this.order = order;
+    }
 
     public String getItemId() {
         return itemId;

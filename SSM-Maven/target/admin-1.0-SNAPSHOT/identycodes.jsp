@@ -91,8 +91,7 @@
                         <span style="color: red" class="errorMsg1"></span>
                     </div>
                 </div>
-
-
+<%--                隐藏域传递了注册码--%>
                 <input id="activecodes" type="hidden" name="activecodes" value="${activeCodes}"/>
 
                 <div class="form-group">

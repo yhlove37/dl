@@ -27,7 +27,6 @@ public class UserServiceImpl implements UserService {
     //激活用户
     @Override
     public void mailActivate(String activeCode) {
-        
         mapper.mailActivate(activeCode);
     }
 
@@ -61,10 +60,6 @@ public class UserServiceImpl implements UserService {
         mapper.updateaction(user);
     }
 
-//    @Override
-//    public void addjl(Jl jl) {
-//        mapper.addjl(jl);
-//    }
 
     @Override
     public String activebyuid(String uid) {

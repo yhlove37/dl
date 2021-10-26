@@ -32,7 +32,7 @@ public interface ProductMapper {
 
     Product findProductByPid(@Param("pid") String pid);
 
-    ProductVo findProductVoByPid(String pid);
+    ProductVo findProductVoByPid(int pid);
 
     void addOrders(Order order);
 
@@ -40,7 +40,7 @@ public interface ProductMapper {
 
     void updateOrderAddr(@Param("address") String address,@Param("name") String name,@Param("telephone") String telephone, @Param("oid") String oid);
 
-    List<Order> findAllOrdersByUid(@Param("uid") String uid);
+    List<Order> findAllOrdersByUid(@Param("uid") int uid);
 
     List<OrderItem> findAllOrderItemByOid(String oid);
     //

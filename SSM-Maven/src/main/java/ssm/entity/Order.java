@@ -18,13 +18,14 @@ public class Order implements Serializable {
     private String name;  // 收货人姓名
     private String telephone;  // 收货人联系电话
     private User user; //订单属于哪个用户
+    private int ostate; //用于逻辑删除
     //订单的商品项
     private List<OrderItem> orderItems = new ArrayList<>();
 
     public Order() {
     }
 
-    public Order(String oid, String orderTime, double total, int state, String address, String name, String telephone, User user, List<OrderItem> orderItems) {
+    public Order(String oid, String orderTime, double total, int state, String address, String name, String telephone, User user, int ostate, List<OrderItem> orderItems) {
         this.oid = oid;
         this.orderTime = orderTime;
         this.total = total;
@@ -33,6 +34,7 @@ public class Order implements Serializable {
         this.name = name;
         this.telephone = telephone;
         this.user = user;
+        this.ostate = ostate;
         this.orderItems = orderItems;
     }
 
@@ -100,26 +102,19 @@ public class Order implements Serializable {
         this.user = user;
     }
 
+    public int getOstate() {
+        return ostate;
+    }
+
+    public void setOstate(int ostate) {
+        this.ostate = ostate;
+    }
+
     public List<OrderItem> getOrderItems() {
         return orderItems;
     }
 
     public void setOrderItems(List<OrderItem> orderItems) {
         this.orderItems = orderItems;
-    }
-
-    @Override
-    public String toString() {
-        return "Order{" +
-                "oid='" + oid + '\'' +
-                ", orderTime=" + orderTime +
-                ", total=" + total +
-                ", state=" + state +
-                ", address='" + address + '\'' +
-                ", name='" + name + '\'' +
-                ", telephone='" + telephone + '\'' +
-                ", user=" + user +
-                ", orderItems=" + orderItems +
-                '}';
     }
 }

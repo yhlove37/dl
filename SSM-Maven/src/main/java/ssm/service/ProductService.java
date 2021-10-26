@@ -26,13 +26,13 @@ public interface ProductService {
 
     Product findProductByPid(String pid);
 
-    ProductVo findProductVoByPid(String pid);
+    ProductVo findProductVoByPid(int pid);
 
     void submitOrder(Order order);
 
     void updateOrderAddr(String address,String name,String telephone,String oid);
 
-    List<Order> findAllOrders(String uid);
+    List<Order> findAllOrders(int uid);
 
     List<OrderItem> findAllOrderItemByOid(String oid2);
 

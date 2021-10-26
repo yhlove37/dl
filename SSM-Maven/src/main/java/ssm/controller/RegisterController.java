@@ -16,6 +16,7 @@ import ssm.utils.CommonsUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
+import java.util.Random;
 
 
 @RequestMapping()
@@ -26,28 +27,33 @@ public class RegisterController {
 
     @Autowired
     CommonsService sendMailService;
-    
-    @RequestMapping(value = "/register/", method = RequestMethod.POST)
+
+    /**
+     * @return java.lang.String
+     * @Author YH
+     * @Description //注册跳转接受验证信息，用于完成用户的激活
+     * @Date 10:37 AM 10/26/2021
+     * @Param [request, user, response]
+     **/
+    @RequestMapping(value = "/register/do", method = RequestMethod.POST)
     public String doRegister(HttpServletRequest request, @ModelAttribute User user, HttpServletResponse response) throws UnsupportedEncodingException {
-        //防止中文乱码
-        response.setContentType("text/html;charset=UTF-8");
         String email = request.getParameter("email");
-        //补全对应的信息
-        user.setHeadimage(null);
-        user.setUid(CommonsUtils.getUUID());
-        user.setTelephone(null);
+        //补全信息，默认为空
         user.setState(0);
         //设置激活码
-        String activeCode = CommonsUtils.getUUID();
+        Random random = new Random(9000);
+        int i = random.nextInt(9000) + 1000;
+        System.out.println(i);
+        String activeCode = i + "";
         user.setCode(activeCode);
         //将user传递到service层
         boolean isRegisterSuccess = service.register(user);
         //是否注册成功
-        if(isRegisterSuccess){
-            String emailMsg = "恭喜您注册成功！你的激活码："+activeCode+"";
-            sendMailService.sendActivateMail(user.getEmail(),emailMsg);
-            request.setAttribute("activeCodes",activeCode);
-            request.setAttribute("email",email);
+        if (isRegisterSuccess) {
+            String emailMsg = "恭喜您注册成功！你的激活码：" + activeCode + "";
+            sendMailService.sendActivateMail(user.getEmail(), emailMsg);
+            request.setAttribute("activeCodes", activeCode);
+            request.setAttribute("email", email);
             //跳转到邮箱激活页面
             return "/identycodes";
         } else {
@@ -55,30 +61,44 @@ public class RegisterController {
             return "redirect:registerFail.jsp";
         }
     }
-    
+
+    /**
+     * @return java.lang.String
+     * @Author YH
+     * @Description // 完成激活码的验证
+     * @Date 10:46 AM 10/26/2021
+     * @Param [request, redirectAttributes]
+     **/
     @RequestMapping(value = "/register/active", method = RequestMethod.GET)
-    public String doActivate(HttpServletRequest request,RedirectAttributes redirectAttributes){
+    public String doActivate(HttpServletRequest request) {
         String activecodes = request.getParameter("activecodes");
         String codes = request.getParameter("codes");
-        if (codes!=null&&activecodes.equals(codes)){
-            //如果激活码对应
+        if (codes != null && activecodes.equals(codes)) {
             service.mailActivate(codes);
             return "redirect:/login.jsp";
-        }
-        else  return "redirect:/registerFail.jsp ";
+        } else return "redirect:/registerFail.jsp ";
 
 
     }
-    
-    @ResponseBody         //返回json，需要此注解
+
+
+    /**
+     * @Author YH
+     * @Description // 用于ajax校验用户名是否存在
+     * @Date 10:55 AM 10/26/2021
+     * @Param [request]
+     * @return java.lang.String
+     **/
+
+    @ResponseBody     //返回json数据类型而不是视图层，需要次注解
     @RequestMapping("/register/checkUsername")
-    public String doCheckUserName(HttpServletRequest request){
-        
+    public String doCheckUserName(HttpServletRequest request) {
+
         String userName = request.getParameter("username");
-        boolean isExist =  service.checkUserName(userName);
- //     isExist 查询到则为真 否则则为假
+        boolean isExist = service.checkUserName(userName);
+        //     isExist 查询到则为真 否则则为假 json数据格式
         String json = "{\"isExist\":" + isExist + "}";
         return json;
     }
-    
+
 }

@@ -49,10 +49,7 @@
         delete from user where uid=#{uid}
     </delete>
 
-<!--    添加记录-->
-<!--    <insert id="addjl" parameterType="ssm.entity.Jl">-->
-<!--        insert into jl value (#{cid},#{cdata})-->
-<!--    </insert>-->
+
 
 <!--    激活用户-->
     <update id="activebyuid" parameterType="String">

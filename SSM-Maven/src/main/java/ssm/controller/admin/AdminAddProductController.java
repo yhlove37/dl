@@ -71,7 +71,7 @@ public class AdminAddProductController {
             System.out.println("2222222"+product.getPimage());
             //到此，product并没有封装完成
             //private String pid;
-            product.setPid(CommonsUtils.getUUID());
+//            product.setPid(CommonsUtils.getUUID());
             //private String pdate;
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             String pDate = format.format(new Date());

@@ -58,7 +58,7 @@
         from product 
         where pid = #{pid}
     </select>
-    <select id="findProductVoByPid" parameterType="String"
+    <select id="findProductVoByPid" parameterType="Integer"
             resultType="ssm.vo.ProductVo">
         select *
         from product
@@ -75,7 +75,8 @@
             #{address},
             #{name},
             #{telephone},
-            #{user.uid}
+            #{user.uid},
+            #{ostate}
         )
     </select>
     <select id="addOrderItem" parameterType="OrderItem">
@@ -97,7 +98,7 @@
         telephone = #{telephone}
         where oid = #{oid}
     </update>
-    <select id="findAllOrdersByUid" parameterType="String"
+    <select id="findAllOrdersByUid" parameterType="Integer"
             resultType="Order">
         select * 
         from orders
@@ -121,16 +122,13 @@
 
 
 
-<!--    <delete id="deleteOrderByoid" parameterType="String >-->
-<!--        delete  from order-->
-<!--        where oid=#{oid}-->
-<!--    </delete>-->
-
-    <delete id="deleteOrderByoid" parameterType="String">
-     delete from orders
-     where oid=#{oid1}
+    <update id="deleteOrderByoid" parameterType="String">
+        update orders
+        set
+            ostate=0
+        where oid=#{oid1}
+    </update>
 
 
-    </delete>
 
 </mapper>    

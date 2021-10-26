@@ -71,6 +71,7 @@ public class ProductServiceImpl implements ProductService {
     //找到最热商品列表
     @Override
     public List<ProductVo> findHotProductList() {
+
         return mapper.findHotProductList();
     }
 
@@ -121,7 +122,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductVo findProductVoByPid(String pid) {
+    public ProductVo findProductVoByPid(int pid) {
         return mapper.findProductVoByPid(pid);
     }
 
@@ -147,7 +148,7 @@ public class ProductServiceImpl implements ProductService {
     
     
     @Override
-    public List<Order> findAllOrders(String uid) {
+    public List<Order> findAllOrders(int uid) {
         return mapper.findAllOrdersByUid(uid);
     }
 

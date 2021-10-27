@@ -44,7 +44,7 @@
 					<td class="ta_01" bgColor="#ffffff">
 						<input type="text" name="pname" value="" id="userAction_save_do_logonName" class="bg"/>
 					</td>
-					<td width="18%" align="center" bgColor="#f5fafe" class="ta_01">
+					<td width="18%"  align="center" bgColor="#f5fafe" class="ta_01">
 						是否热门：
 					</td>
 					<td class="ta_01" bgColor="#ffffff">
@@ -73,7 +73,7 @@
 						商品图片：
 					</td>
 					<td class="ta_01" bgColor="#ffffff" colspan="3">
-						<input type="file" name="upload" />
+						<input   type="file" name="upload" />
 					</td>
 				</tr>
 				<tr>
@@ -82,10 +82,7 @@
 					</td>
 					<td class="ta_01" bgColor="#ffffff" colspan="3">
 						<select id="cid" name="cid">
-							<%--<c:forEach items="${categoryList }" var="category">--%>
-								<%--<option value="${category.cid}">${category.cname }</option>--%>
-							<%--</c:forEach>--%>
-							<%----%>
+
 						</select>
 					</td>
 				</tr>

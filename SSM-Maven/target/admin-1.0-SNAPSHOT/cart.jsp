@@ -118,6 +118,14 @@
 			</div>
 		</c:if>
 
+		<c:if test="${not empty shopMsg}">
+			<script type="text/javascript" language="javascript">
+				{
+					alert("${shopMsg}");
+				}
+			</script>
+		</c:if>
+
 		<!-- 引入footer.jsp -->
 		<jsp:include page="/footer.jsp"></jsp:include>
 

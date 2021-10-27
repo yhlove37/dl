@@ -21,7 +21,7 @@ public class AdminUpdateProductUIController {
     @RequestMapping(value = "/adminUpdateProductUI", method = RequestMethod.GET)
     public String updateProductUI(HttpServletRequest request, HttpServletResponse response){
         String pid = request.getParameter("pid");
-        Product product = service.findProductById(pid);
+        Product product = service.findProductById(Integer.valueOf(pid));
         request.setAttribute("product", product);
         
         List<Category> categoryList = service.findAllCategory();

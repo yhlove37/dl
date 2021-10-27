@@ -3,12 +3,17 @@ package ssm.controller.admin;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import ssm.entity.Product;
 import ssm.service.AdminProductService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
@@ -22,33 +27,35 @@ public class AdminUpdateProductController {
     AdminProductService service;
 
     @RequestMapping(value = "/adminUpdateProduct", method = RequestMethod.POST)
-    public String doAddProduct(HttpServletRequest request) throws UnsupportedEncodingException {
-        request.setCharacterEncoding("UTF-8");
-        //1获取数据
-        Map<String, String[]> properties = request.getParameterMap();
-        //2封装数据
-        Product product = new Product();
-        try {
-            BeanUtils.populate(product, properties);
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
+    public String UpdateProduct(HttpServletRequest request,@ModelAttribute Product product,@RequestParam(value = "upload",required = false) CommonsMultipartFile upload) throws IOException {
+        if (!upload.isEmpty()){
+            String path = request.getServletContext().getRealPath("/products/1");
+            System.out.println("查看地址"+path);
+            File realPath = new File(path);
+            if (!realPath.exists()){
+                realPath.mkdir();
+            }
+            //上传文件地址
+            System.out.println("上传文件保存地址："+realPath);
+            upload.transferTo(new File(realPath +"/"+ upload.getOriginalFilename()));
+
+//        //本地地址
+            String path2="C:\\Users\\yh139\\Desktop\\p3=\\SSM-Maven\\SSM-Maven\\src\\main\\webapp\\products\\1";
+            File realPath2 = new File(path2);
+            if (!realPath2.exists()){
+                realPath2.mkdir();
+            }
+            System.out.println("上传文件保存地址："+realPath2);
+            upload.transferTo(new File(realPath2 +"/"+ upload.getOriginalFilename()));
+            String pimage ="products/1/"+upload.getOriginalFilename();
+            product.setPimage(pimage);
+        }else {
+            product.setPimage(null);
         }
-        //此位置product已经封装完毕，将表单的数据封装完毕
-        //手动设置表单中没有的数据
-        
-        //写一个用户看不到的字段！，在表单中
-//        //1、pid
-//        product.setPid(UUID.randomUUID().toString());
-        
-        //2、pImage  ---已写死
-        product.setPimage("products/1/c_0033.jpg");
-        //3、pDate //上架日期
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         String pDate = format.format(new Date());
         product.setPdate(pDate);
-        //4、pFlag // 商品是否下架 ---已写死
-        product.setPflag(0);
-        //3传递数据给service层
+        System.out.println(product);
         service.updateProduct(product);
 
         return "redirect:/adminProductList";

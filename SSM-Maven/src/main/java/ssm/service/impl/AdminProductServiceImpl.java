@@ -33,12 +33,12 @@ public class AdminProductServiceImpl implements AdminProductService {
     }
 
     @Override
-    public void delProductById(String pid) {
+    public void delProductById(int pid) {
         mapper.delProductById(pid);
     }
 
     @Override
-    public Product findProductById(String pid) {
+    public Product findProductById(int pid) {
         return mapper.findProductById(pid);
     }
 

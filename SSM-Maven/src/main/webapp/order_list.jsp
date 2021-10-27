@@ -41,7 +41,7 @@ body {
 						<tbody>
 						<c:if test="${order.ostate == 1}">
 						<tr class="success" style="width: 100%" >
-							<th  colspan="6">订单编号:${order.oid}&nbsp;&nbsp;${order.state==0?"未付款":"已付款"}</th>
+							<th  colspan="6">订单编号:${order.oid}&nbsp;&nbsp;${order.state==0?"未付款":"已付款"}&nbsp;&nbsp;下单时间:${order.orderTime}</th>
 						</tr>
 						<tr class="warning" style="width: 100%">
 							<th>图片</th>
@@ -49,18 +49,18 @@ body {
 							<th>价格</th>
 							<th>数量</th>
 							<th>小计</th>
-							<th>删除</th>
+							<th><a href="${pageContext.request.contextPath}/removeByoid?oid=${order.oid}">删除</a></th>
 						</tr>
 						<c:forEach items="${order.orderItems}" var="orderItem">
 							<tr class="active">
-								<td  width="30%"><input type="hidden" name="id"
+								<td  width="15%"><input type="hidden" name="id"
 																  value="22"> <img src="${orderItem.product.pimage}" width="70"
 																				   height="60"></td>
-								<td width="20%"><a target="_blank">${orderItem.product.pname}</a></td>
-								<td width="20%">￥${orderItem.product.shop_price}</td>
-								<td width="10%">${orderItem.count}</td>
+								<td width="15%"><a target="_blank">${orderItem.product.pname}</a></td>
+								<td width="15%">￥${orderItem.product.shop_price}</td>
+								<td width="15%">${orderItem.count}</td>
 								<td width="15%"><span class="subtotal">￥${orderItem.subtotal}</span></td>
-								<td width="5%"><a href="${pageContext.request.contextPath}/removeByoid?oid=${order.oid}">确定删除</a></td>
+								<td width="5%"></td>
 							</tr>
 						</c:forEach>
 						</tbody>

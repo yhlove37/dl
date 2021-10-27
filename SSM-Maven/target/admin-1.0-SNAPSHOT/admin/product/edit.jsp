@@ -19,21 +19,8 @@
 				$("#is_hot option[value='${product.is_hot }']").prop("selected",true);
 			});
 		
-		
-			<%--//页面加载完毕后 确定那个option被选中--%>
-			 <%--window.onload = function(){--%>
-				<%--//获得当前回显的product的cid--%>
-				<%--var cid = "${product.cid }";--%>
-				<%--//获得所有的<select name="cid">下的option--%>
-				<%--var options = document.getElementById("cid").getElementsByTagName("option");--%>
-				<%--//比较每一个option的value与cid--%>
-				<%--for(var i=0;i<options.length;i++){--%>
-					<%--if(cid==options[i].value){--%>
-						<%--options[i].selected = true;--%>
-					<%--}--%>
-				<%--}--%>
-			<%--} --%>
-			
+
+
 			
 			
 		</script>
@@ -43,7 +30,7 @@
 	
 	<body>
 		<!--  -->
-		<form id="userAction_save_do" name="Form1" action="${pageContext.request.contextPath}/adminUpdateProduct" method="post">
+		<form id="userAction_save_do" name="Form1" action="${pageContext.request.contextPath}/adminUpdateProduct" method="post" enctype="multipart/form-data">
 			
 			<input type="hidden" name="pid" value="${product.pid }">
 			

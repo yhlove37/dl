@@ -15,9 +15,9 @@ public interface AdminProductService {
 
     public void addProduct(Product product);
 
-    public void delProductById(String pid);
+    public void delProductById(int pid);
 
-    public Product findProductById(String pid);
+    public Product findProductById(int pid);
 
     public void updateProduct(Product product);
 

@@ -20,7 +20,7 @@
     <select id="delProductById" parameterType="Product">
         delete from product where pid=#{pid}
     </select>
-    <select id="findProductById" parameterType="Product"
+    <select id="findProductById" parameterType="Integer"
         resultType="ssm.entity.Product">
         select * from product where pid=#{pid}
     </select>

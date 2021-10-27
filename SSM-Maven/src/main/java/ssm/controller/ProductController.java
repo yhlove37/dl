@@ -396,21 +396,30 @@ public class ProductController {
         }
 
 
+        /**
+         * @Author YH
+         * @Description //提交订单，此时会提交收货人相关信息，以及更新订单的状态
+         * @Date 8:56 AM 10/27/2021
+         * @Param [request, session, name, address, telephone]
+         * @return java.lang.String
+         **/
     @RequestMapping(value = "/gogo", method = RequestMethod.GET)
     public String getvalue(HttpServletRequest request, HttpSession session, @RequestParam("name") String name,@RequestParam("address") String address,@RequestParam("telephone") String telephone){
-       Order order=(Order) session.getAttribute("order");
-        String oid = order.getOid();
-        //根据订单号修改address 和name和telephone
-        service.updateOrderAddr(address,name,telephone,oid);
-        request.setAttribute("msg","商品购买成功");
-        return "/order_info";
+        if (name!=null&&address!=null&&telephone!=null){
+            Order order=(Order) session.getAttribute("order");
+            String oid = order.getOid();
+            service.updateOrderAddr(address,name,telephone,oid);
+            request.setAttribute("shopMsg","购买成功");
+            return "/cart";
+        }else {
+            request.setAttribute("shopMsg","商品购买失败");
+            return "/order_info";
+        }
+
+
 
     }
 }
-
-
-
-
 
 
 

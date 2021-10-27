@@ -17,7 +17,8 @@ public class AdminDelProductController {
     @RequestMapping(value = "/adminDelProduct", method = RequestMethod.GET)
     public String delProduct(HttpServletRequest request){
         String pid = request.getParameter("pid");
-        service.delProductById(pid);
+        //根据id删除
+        service.delProductById(Integer.valueOf(pid));
         return "redirect:/adminProductList";
     }
 }

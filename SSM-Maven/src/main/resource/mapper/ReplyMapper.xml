@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ssm.dao.ReplyMapper">
+
+    <select id="findProductByPid" parameterType="String"
+            resultType="Product">
+        select *
+        from product
+        where pid = #{pid}
+    </select>
+
+    <select id="selReplyCountByProductId" parameterType="Integer"  resultType="Integer">
+        SELECT COUNT(*) FROM reply WHERE product_id = #{productId}
+    </select>
+
+
+    <select id="selReplyByProductId"  resultType="Reply" >
+        SELECT * FROM reply WHERE product_id = #{productId} limit #{page.startPos},#{page.pageSize}
+    </select>
+
+
+
+    <select id="selUserByUserId" parameterType="int" resultType="User">
+        select * from user where uid=#{uid}
+    </select>
+
+    <insert id="insertReply" parameterType="Reply">
+        insert into reply
+        values (
+                   #{reply_id},
+                   #{user_id},
+                   #{product_id},
+                   #{reply_createTime},
+                   #{reply_modifyTime},
+                   #{reply_content}
+               )
+
+    </insert>
+
+</mapper>

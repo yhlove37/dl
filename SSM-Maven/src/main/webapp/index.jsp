@@ -76,11 +76,11 @@
             </div>
             <c:forEach items="${hotProductList}" var="hotPro">
                 <div class="col-md-2 col-sm-4" style="text-align:center;height:200px;padding:10px 0px;">
-                    <a href="${pageContext.request.contextPath}/productInfo?pid=${hotPro.pid}&cid=${hotPro.cid}&sy=sy">
+                    <a href="${pageContext.request.contextPath}/productInfo?pid=${hotPro.pid}&cid=${hotPro.cid}&currentPage=0">
                         <img src="${pageContext.request.contextPath}/${hotPro.pimage}" width="130" height="130"
                              style="display: inline-block;">
                     </a>
-                    <p><a href="${pageContext.request.contextPath}/productInfo?pid=${hotPro.pid}&cid=${hotPro.cid}"
+                    <p><a href="${pageContext.request.contextPath}/productInfo?pid=${hotPro.pid}&cid=${hotPro.cid}&currentPage=0"
                           style='color:#666'>${hotPro.pname}</a></p>
                     <p><font color="#E4393C" style="font-size:16px">${hotPro.shop_price}</font></p>
                 </div>
@@ -112,11 +112,11 @@
             <c:forEach items="${newProductList}" var="newPro">
 
                 <div class="col-md-2 col-sm-4" style="text-align:center;height:200px;padding:10px 0px;">
-                    <a href="${pageContext.request.contextPath}/productInfo?pid=${newPro.pid}&cid=${newPro.cid}&sy=sy">
+                    <a href="${pageContext.request.contextPath}/productInfo?pid=${newPro.pid}&cid=${newPro.cid}&currentPage=0">
                         <img src="${pageContext.request.contextPath}/${newPro.pimage}" width="130" height="130"
                              style="display: inline-block;">
                     </a>
-                    <p><a href="${pageContext.request.contextPath}/productInfo?pid=${newPro.pid}&cid=${newPro.cid}"
+                    <p><a href="${pageContext.request.contextPath}/productInfo?pid=${newPro.pid}&cid=${newPro.cid}&currentPage=0"
                           style='color:#666'>${newPro.pname}</a></p>
                     <p><font color="#E4393C" style="font-size:16px">${newPro.shop_price}</font></p>
                 </div>

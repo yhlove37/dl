@@ -27,4 +27,9 @@ public interface AdminProductMapper {
     List<Order> findAllOrders();
 
     List<OrderItem> finOrderInfoByOid(String oid);
+
+    //根据删除
+    Boolean deleterow(String cid);
+
+     void updaterow (Category category);
 }

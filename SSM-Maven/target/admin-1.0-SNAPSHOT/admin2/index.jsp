@@ -47,10 +47,11 @@
                 <ul class="layui-nav layui-nav-tree" lay-filter="test">
                     <li class="layui-nav-item layui-nav-itemed">
                         <a href="javascript:;">主页</a>
-                        <dl class="layui-nav-child">
-                            <dd class="layui-this"><a data_herf="./page/home.html" href="javascript:;">home</a></dd>
-                        </dl>
                     </li>
+                    <li class="layui-nav-item">
+                        <a data_herf="${pageContext.request.contextPath}/adminCatagory" href="javascript:;">商品分类管理</a>
+                    </li>
+
                     <li class="layui-nav-item">
                         <a data_herf="${pageContext.request.contextPath}/adminProductList" href="javascript:;">商品信息管理</a>
                     </li>

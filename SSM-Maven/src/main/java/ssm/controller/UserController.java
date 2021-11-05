@@ -120,7 +120,6 @@ public class UserController {
             }
             session.setAttribute("user", user);
 
-//  return "redirect:"+ request.getContextPath() +"/index2.jsp";
             return "redirect:/index";
         } else {
             redirectAttributes.addFlashAttribute("loginError","用户权限不够");
@@ -137,17 +136,16 @@ public class UserController {
     }
 
     @RequestMapping(value = "/findAllusers")
-    public String findAllusers(HttpServletRequest request, HttpSession session){
+    public String findAllusers(HttpServletRequest request){
         List<User> users = userService.findAllusers();
-        request.getSession().setAttribute("users",users);
-        return "redirect:/admin/user/list.jsp";
+        request.setAttribute("users",users);
+        return "/admin/user/list";
     }
 
 
     @RequestMapping(value = "/deletebyid")
     public String deletebyid(HttpServletRequest request, HttpSession session){
         String uid = request.getParameter("uid");
-
         userService.deletebyid(uid);
         return "forward:findAllusers";
     }

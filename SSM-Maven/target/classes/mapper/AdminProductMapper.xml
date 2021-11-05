@@ -100,4 +100,22 @@
     <select id="getUserByUid" resultType="ssm.entity.User">
         select * from User  where uid=#{uid}
     </select>
+
+
+
+    <update id="deleterow" parameterType="String" >
+        update category set
+                          cstate=0
+        where cid = #{cid}
+
+    </update>
+
+
+
+    <update id="updaterow" parameterType="Category">
+        update category set
+                            cname = #{cname},
+                            cinfo = #{cinfo}
+        where cid = #{cid}
+    </update>
 </mapper>

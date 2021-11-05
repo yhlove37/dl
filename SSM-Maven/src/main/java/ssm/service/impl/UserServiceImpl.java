@@ -71,7 +71,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public String canelbyuid(String uid) {
         mapper.canelbyuid(uid);
-        String mes="取消激活成功";
+        String mes="禁用成功";
         return mes;
     }
 }

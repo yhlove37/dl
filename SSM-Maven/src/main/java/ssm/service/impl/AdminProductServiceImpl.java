@@ -61,4 +61,16 @@ public class AdminProductServiceImpl implements AdminProductService {
     public List<OrderItem> finOrderInfoByOid(String oid) {
         return mapper.finOrderInfoByOid(oid);
     }
+
+    @Override
+    public boolean deleterow(String cid) {
+        Boolean deleterow = mapper.deleterow(cid);
+
+        return  deleterow;
+    }
+
+    @Override
+    public void updaterow(Category category) {
+        mapper.updaterow(category);
+    }
 }

@@ -29,7 +29,11 @@ public interface AdminProductMapper {
     List<OrderItem> finOrderInfoByOid(String oid);
 
     //根据删除
-    Boolean deleterow(String cid);
+    Boolean deleteRow(String cid);
 
-     void updaterow (Category category);
+     void updateRow (Category category);
+
+     void insertRow(Category category);
+
+     int selectRowCount();
 }

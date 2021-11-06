@@ -108,15 +108,20 @@ function rowAcep(but) {
         $td.html(cont);  //fija contenido y elimina controles
         a.push(cont)
     });
+    var cid = $row.find('td:first').text()
+    alert(cid)
+
+
     $.ajax({
         url:"updaterow",
         type:"post",
         async:false,
-        data:{"cid":a[0],"cname":a[1],"cinfo":a[2]},
+        data:{"cid":cid,"cname":a[1],"cinfo":a[2]},
         dataType: 'json',
         success:function(data){
         }
     })
+
     FijModoNormal(but);
     params.onEdit($row);
 }
@@ -134,7 +139,7 @@ function rowCancel(but) {
 }
 function rowEdit(but) {  //Inicia la edición de una fila
     var $row = $(but).parents('tr');  //accede a la fila
-    var $cols = $row.find('td');  //lee campos
+    var $cols = $row.find('td').not("td:first");  //lee campos
     if (ModoEdicion($row)) return;  //Ya está en edición
     //Pone en modo de edición
     IterarCamposEdit($cols, function($td) {  //itera por la columnas
@@ -145,7 +150,7 @@ function rowEdit(but) {  //Inicia la edición de una fila
     });
 
     FijModoEdit(but);
-    //使用ajax更新
+
 
 }
 function rowElim(but) {  //Elimina la fila actual

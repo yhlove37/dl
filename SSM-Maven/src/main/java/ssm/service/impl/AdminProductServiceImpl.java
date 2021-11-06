@@ -63,14 +63,24 @@ public class AdminProductServiceImpl implements AdminProductService {
     }
 
     @Override
-    public boolean deleterow(String cid) {
-        Boolean deleterow = mapper.deleterow(cid);
+    public boolean deleteRow(String cid) {
+        Boolean deleterow = mapper.deleteRow(cid);
 
         return  deleterow;
     }
 
     @Override
-    public void updaterow(Category category) {
-        mapper.updaterow(category);
+    public void updateRow(Category category) {
+        mapper.updateRow(category);
+    }
+
+    @Override
+    public void insertRow(Category category) {
+        mapper.insertRow(category);
+    }
+
+    @Override
+    public int selectRowCount() {
+        return mapper.selectRowCount();
     }
 }

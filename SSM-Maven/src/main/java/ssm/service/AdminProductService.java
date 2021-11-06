@@ -27,7 +27,11 @@ public interface AdminProductService {
 
     List<OrderItem> finOrderInfoByOid(String oid);
 
-    boolean deleterow(String cid);
+    boolean deleteRow(String cid);
 
-    void updaterow(Category category);
+    void updateRow(Category category);
+
+    void insertRow(Category category);
+
+    int selectRowCount();
 }

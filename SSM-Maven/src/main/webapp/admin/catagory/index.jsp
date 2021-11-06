@@ -39,7 +39,7 @@
                         </thead>
                         <tbody>
 
-                        <c:forEach items="${categoryList }" var="pro" varStatus="vs">
+                        <c:forEach items="${categoryList }" var="pro" varStatus="s">
                             <c:if test="${pro.cstate == 1}">
                             <tr>
                                 <td>${pro.cid}</td>

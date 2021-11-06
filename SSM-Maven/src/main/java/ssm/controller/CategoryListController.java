@@ -58,7 +58,7 @@ public class CategoryListController {
     @ResponseBody
     @RequestMapping(value = "/deleterow",produces = {"text/html;charset=UTF-8"})
     public String deleterow(HttpServletRequest request,String cid){
-        boolean flag = adminProductService.deleterow(cid);
+        boolean flag = adminProductService.deleteRow(cid);
         String msg="";
         if (flag){
             msg="更新成功";
@@ -86,11 +86,15 @@ public class CategoryListController {
         String cinfo= request.getParameter("cinfo");
         Category category = new Category();
         category.setCinfo(cinfo);
-        category.setCid(cid);
         category.setCname(cname);
-        System.out.println(category);
-        adminProductService.updaterow(category);
-
+        category.setCstate(1);
+        if (cid != null && cid.length() != 0){
+            category.setCid(cid);
+            adminProductService.updateRow(category);
+        }else{
+            int i = adminProductService.selectRowCount();
+            category.setCid(String.valueOf(i+1));
+            adminProductService.insertRow(category);
+        }
     }
-
 }

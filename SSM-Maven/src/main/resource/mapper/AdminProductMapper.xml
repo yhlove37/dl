@@ -103,7 +103,7 @@
 
 
 
-    <update id="deleterow" parameterType="String" >
+    <update id="deleteRow" parameterType="String" >
         update category set
                           cstate=0
         where cid = #{cid}
@@ -112,10 +112,30 @@
 
 
 
-    <update id="updaterow" parameterType="Category">
-        update category set
-                            cname = #{cname},
-                            cinfo = #{cinfo}
-        where cid = #{cid}
-    </update>
+<!--    <update id="updaterow" parameterType="Category">-->
+<!--      if EXISTS()-->
+<!--        update category set-->
+<!--                            cname = #{cname},-->
+<!--                            cinfo = #{cinfo}-->
+<!--        where cid = #{cid}-->
+<!--    </update>-->
+<!--    -->
+
+    <insert id="updateRow" parameterType="Category">
+        INSERT INTO category (cid,cname,cinfo) VALUES (#{cid},#{cname},#{cinfo})ON DUPLICATE KEY UPDATE cname=#{cname},cinfo=#{cinfo};
+
+    </insert>
+
+
+    <insert id="insertRow" parameterType="Category">
+        INSERT INTO category (cid,cname,cstate,cinfo) VALUES (#{cid},#{cname},1,#{cinfo})
+    </insert>
+
+
+    <select id="selectRowCount" resultType="Integer">
+
+        select count(*) from  category
+    </select>
+
+
 </mapper>

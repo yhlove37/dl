@@ -10,13 +10,13 @@ var params = null;  		//Parameters
 var colsEdi =null;
 var newColHtml = '<div class="btn-group pull-right">'+
     '<button id="bEdit" type="button" class="btn btn-sm btn-default" onclick="rowEdit(this);">' +
-    '<span class="glyphicon glyphicon-pencil" > </span>'+
+    '<span class="fa fa-pencil" > </span>'+
     '</button>'+
     '<button id="bElim" type="button" class="btn btn-sm btn-default" onclick="rowElim(this);">' +
-    '<span class="glyphicon glyphicon-trash" > </span>'+
+    '<span class="fa fa-trash-o" > </span>'+
     '</button>'+
     '<button id="bAcep" type="button" class="btn btn-sm btn-default" style="display:none;" onclick="rowAcep(this);">' +
-    '<span class="glyphicon glyphicon-ok" > </span>'+
+    '<span class="fa  fa-archive" > </span>'+
     '</button>'+
     '<button id="bCanc" type="button" class="btn btn-sm btn-default" style="display:none;" onclick="rowCancel(this);">' +
     '<span class="glyphicon glyphicon-remove" > </span>'+
@@ -109,7 +109,6 @@ function rowAcep(but) {
         a.push(cont)
     });
     var cid = $row.find('td:first').text()
-    alert(cid)
 
 
     $.ajax({

@@ -27,7 +27,6 @@
 			//点击按钮查询某个订单的详情
 			function findOrderInfoByOid(oid){
 				//清理上一次显示的内容覆盖
-
 				//订单主体内容 为空通过返回的数据拼接
 				$("#showDivTab").html("");
 				//订单编号
@@ -175,7 +174,7 @@
 		
 		<!-- 弹出层 HaoHao added -->
         <div id="showDiv" class="blk" style="display:none;">
-            <div class="main">
+            <div class="main" style="width: 80%;right: 10%">
                 <h2>订单编号：<span id="shodDivOid" style="font-size: 13px;color: #999">123456789</span></h2>
                 <a href="javascript:void(0);" id="closeBtn" class="closeBtn">关闭</a>
 <%--				模拟加载的gif--%>

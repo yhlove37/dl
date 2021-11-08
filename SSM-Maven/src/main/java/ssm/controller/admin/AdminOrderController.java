@@ -50,7 +50,6 @@ public class AdminOrderController {
         String oid = request.getParameter("oid");
         List<OrderItem> orderItemList = service.finOrderInfoByOid(oid);
         Gson gson = new Gson();
-        System.out.println("gogogogogoogo"+gson.toJson(orderItemList));
         return gson.toJson(orderItemList);
     }
 }
